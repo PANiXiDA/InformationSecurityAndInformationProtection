@@ -1,0 +1,2 @@
+GetMessager.exe -s D:\Repository\Stenography\Resources\stegocontainer.txt -m D:\Repository\Stenography\Resources\message.txt
+PutMessager.exe -m D:\Repository\Stenography\Resources\message.txt -s D:\Repository\Stenography\Resources\stegocontainer.txt -c D:\Repository\Stenography\Resources\container.txt
