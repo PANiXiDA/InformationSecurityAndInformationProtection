@@ -1,5 +1,7 @@
 Information Security and Information Protection
+
 HomeWork
+
 1. Стеганография
 Реализуйте две программы, с описанным интерфейсом.
 
@@ -16,8 +18,6 @@ HomeWork
 -h или --help — вывод справки о том, как использовать программу и что она делает.
 Примеры запуска:
 
-arduino
-Копировать код
 put-message -m message.txt -s stegocontainer.txt -c container.txt
 put-message -c container.txt < message.txt > stegocontainer.txt
 Программа 2: Извлечение сообщения
@@ -28,8 +28,6 @@ put-message -c container.txt < message.txt > stegocontainer.txt
 -h или --help — вывод справки о том, как использовать программу и что она делает.
 Примеры запуска:
 
-sql
-Копировать код
 get-message -s stegocontainer.txt --message message.txt
 get-message < stegocontainer.txt > message.txt
 Способы кодирования
