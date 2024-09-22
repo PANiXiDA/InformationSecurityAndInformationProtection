@@ -1,0 +1,72 @@
+html {
+  background:#aaa;
+}
+
+.error {
+  border:1px solid #f00;
+  color:#f00;
+  padding:10px 30px;
+  margin:25px;
+  background:#fee;
+}
+
+.success {
+  border:1px solid #0f0;
+  color:#262;
+  margin:25px;
+  padding:10px 30px;
+  background:#efe;
+}
+
+pre {
+  background:#fff;
+  border:1px solid #000;
+}
+
+form, section {
+  background:#fff;
+  border-radius:15px;
+  margin:8px auto;
+  border:1px solid #282;
+  max-width:400px;
+  padding:20px;
+}
+
+label {
+  color:#282;
+  display:inline-block;
+  width:180px;
+}
+
+div {
+  margin:15px;
+}
+
+input {
+  width:100px;
+  border:1px solid #282;
+  outline:#2f2;
+  border-radius:8px;
+  display:inline-block;
+}
+
+input[type=submit], button {
+  cursor:pointer;
+  background:#fff;
+  color:#282;
+  border:1px solid #282;
+  display:block;
+  width:150px;
+  margin:10px auto;
+  padding:5px;
+  text-align:center;
+  border-radius: 300px;
+  box-shadow: 0px 0px 5px #000;
+}
+
+input[type=submit]:hover, button:hover {
+  color:#fff;
+  background:#282;
+  box-shadow: 0px 0px 2px #000;
+}
+

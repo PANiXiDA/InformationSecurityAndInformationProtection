@@ -1,0 +1,53 @@
+#!/bin/bash
+set -e
+
+: "${POSTGRES_USER:?Need to set POSTGRES_USER}"
+: "${POSTGRES_PASSWORD:?Need to set POSTGRES_PASSWORD}"
+: "${POSTGRES_DB:?Need to set POSTGRES_DB}"
+
+echo 'AUTH DATABASE CREATION STARTED';
+
+psql -v ON_ERROR_STOP=1 \
+     --username "$POSTGRES_USER" \
+     --dbname "$POSTGRES_DB" <<-EOSQL
+
+DROP DATABASE IF EXISTS "auth";
+
+CREATE USER "auth_user" WITH PASSWORD 'password';
+CREATE USER "comment_user" WITH PASSWORD 'password';
+CREATE USER "bank_user" WITH PASSWORD 'password';
+
+CREATE DATABASE "auth";
+
+\c auth;
+
+CREATE TABLE "users" (
+  "id" SERIAL PRIMARY KEY,
+  "user" VARCHAR(64),
+  "password" BYTEA
+);
+
+INSERT INTO "users"("user", "password") VALUES
+   ('admin', NULL);
+
+GRANT SELECT ON "users" TO "auth_user";
+
+DROP DATABASE IF EXISTS "forum";
+
+CREATE DATABASE "forum";
+
+\c forum;
+
+CREATE TABLE "comments" (
+  "id" SERIAL PRIMARY KEY,
+  "text" varchar(512)
+);
+
+INSERT INTO "comments"("text") VALUES ('Замечательный сайт, тут точно не украдут ничей пароль'); 
+
+GRANT SELECT,INSERT ON "comments" TO "comment_user";
+
+EOSQL
+
+echo 'AUTH DATABASE CREATED';
+

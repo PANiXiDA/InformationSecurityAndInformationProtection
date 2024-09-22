@@ -1,0 +1,35 @@
+version: "3.5"
+
+services:
+
+  web:
+    build: web
+    expose:
+      - 80
+    ports:
+      - "8086:80"
+    networks:
+      - "backend"
+    depends_on:
+      - postgres
+
+  postgres:
+    build: postgres
+    expose:
+      - 5432
+    ports:
+      - "5433:5432"
+    networks:
+      - "backend"
+    environment:
+      POSTGRES_DB: postgres  
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password    
+
+networks:
+  backend:
+    name: backend
+
+volumes:
+  postgres-data:
+    driver: local
