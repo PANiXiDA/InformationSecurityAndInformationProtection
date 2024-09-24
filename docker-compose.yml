@@ -1,0 +1,53 @@
+services:
+
+  api:
+    container_name: passwordsystem_server  
+    build:
+      context: .
+      dockerfile: PasswordSystem.API/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    env_file:
+      - .env      
+    depends_on:
+      - db
+      - migrator
+
+  db:
+    image: postgres:15
+    container_name: passwordsystem_postgres
+    restart: always
+    env_file:
+      - .env    
+    ports:
+      - "5434:5432"
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=passwordsystem_postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  migrator:
+    image: mcr.microsoft.com/dotnet/sdk:8.0
+    container_name: passwordsystem_migrator
+    working_dir: /app
+    volumes:
+      - .:/app
+    command:
+      - sh
+      - -c
+      - |
+        dotnet tool install --global dotnet-ef --prerelease &&
+        export PATH="/usr/local/bin:/usr/bin:/bin:/root/.dotnet/tools" &&
+        dotnet restore DAL/DAL.DbModels/DAL.DbModels.csproj &&
+        dotnet ef database update --project DAL/DAL.DbModels/DAL.DbModels.csproj \
+                                  --startup-project PasswordSystem.API/PasswordSystem.API.csproj
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+volumes:
+  database-data:
