@@ -7,7 +7,7 @@ services:
       dockerfile: PasswordSystem.API/Dockerfile
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8080:8080"
     env_file:
       - .env      
     depends_on:
@@ -41,7 +41,6 @@ services:
       - |
         dotnet tool install --global dotnet-ef --prerelease &&
         export PATH="/usr/local/bin:/usr/bin:/bin:/root/.dotnet/tools" &&
-        dotnet restore DAL/DAL.DbModels/DAL.DbModels.csproj &&
         dotnet ef database update --project DAL/DAL.DbModels/DAL.DbModels.csproj \
                                   --startup-project PasswordSystem.API/PasswordSystem.API.csproj
     env_file:
